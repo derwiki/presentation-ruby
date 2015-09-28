@@ -1,0 +1,267 @@
+<!doctype html>
+%html{:lang => "en"}
+  %head
+    %meta{:charset => "utf-8"}/
+    %title Why Web Startups Should Use Ruby
+    %meta{:content => "Adam Derewecki", :name => "author"}/
+    %link{:href => "http://fonts.googleapis.com/css?family=Montserrat:400,700", :rel => "stylesheet", :type => "text/css"}/
+    %link{:href => "reveal/css/reset.css", :rel => "stylesheet"}/
+    %link{:href => "reveal/css/main.css", :rel => "stylesheet"}/
+    %link{:href => "highlight/src/styles/solarized_dark.css", :rel => "stylesheet"}/
+    %link{:href => "presentation.css", :rel => "stylesheet"}/
+    / overrides for default reveal styles
+    :css
+      .reveal pre {
+        font-size: 24px;
+      }
+  %body#derwiki-presentation
+    .reveal
+      .slides
+
+        %section
+          %h2 Why Web Startups Should Use Ruby
+          %br
+          %h5 presented by
+          %h4 Adam Derewecki
+          %h5 adam@cameralends.com
+          %h5 CameraLends Founder
+          %h5 github.com/derwiki/presentation-ruby
+
+
+        %section
+          %h2 CameraLends in brief
+          %ul
+            %li.fragment
+              Airbnb for photographers and film makers, 2-sided marketplace
+            %table.fragment
+              %tr
+                %td
+                  %img.half-height{ src: 'assets/cameralends-homepage.jpg' }
+                  %img.half-height{ src: 'assets/cameralends-srp.jpg' }
+            %li.fragment
+              100% bootstrapped, no external funding
+            %li.fragment
+              Ramen profitable after 2.5 years
+
+        %section
+          %h2 Our Development Team
+          %ul
+            %li.fragment
+              100% have worked with Ruby professionally
+            %li.fragment
+              100% have worked with Python professionally
+            %li.fragment
+              100% have worked with JavaScript professionally
+            %li.fragment
+              100% have worked with C professionally
+            %li.fragment
+              Sounds impressive, but...
+
+        %section
+          %h2 Our Development Team
+          %table
+            %tr
+              %td{ width: '50%' }
+                %img.stretch-height{ src: 'assets/derwiki-photo.jpg' }
+              %td{ width: '50%', valign: :top }
+                %ul
+                  %li Hi! It's just me.
+                  %li.fragment 10k lines of code
+                  %li.fragment 4k commits
+                  %li.fragment
+                    I don't think I could have made it this far without Ruby
+
+        %section
+          %h2 Why Ruby?
+          %ul
+            %li.fragment
+              Optimized for developer efficiency
+            %li.fragment
+              %div ".. we need to focus on humans, on how humans care about doing programming or operating the application of the machines."
+              %div — Yukihiro Matsumoto
+            %li.fragment
+              Outstanding ecosystem (Rails, gems, etc)
+            %li.fragment
+              Mature, timely updates (compared to say, Python)
+
+        %section
+          %h2 Open Classes / Core-type Monkeypatches
+          %ul
+            %li.fragment
+              Once a class has been defined, it can be re-opened and changed
+            %li.fragment
+              i.e. class definitions aren't permanent
+            %li.fragment
+              This can be applied to core language types, like Objects and
+              numbers
+            %li.fragment
+              We'll see some examples of this in common applications
+
+        %section
+          %h2 Blocks
+          %ul
+            %li.fragment
+              Chunk of code that is passed into a method
+            %li.fragment
+              aka anonymous function aka lambda function aka closure
+            %li.fragment
+              e.g. sorting:
+              .code { a: 4, b: 3, c: 1, d: 0}.sort_by { |key, value| value }
+            %li.fragment
+              In other languages, you might declare a function and pass in its
+              pointer or create a lambda function
+            %li.fragment
+              e.g. Python:
+              .code sorted(names_ids, key=lambda name_id: name_id[1])
+
+        %section
+          %h2 Blocks
+          %ul
+            %li.fragment
+              Not unique to Ruby
+            %li.fragment
+              \... but the syntax is
+              %i really
+              nice and encourages use
+            %li.fragment
+              To consume a block in a method, just call
+              %br
+              %code yield if block_given?
+              %br
+              \- that's it, you don't change the method signature
+            %li.fragment
+              Implementing code decides how to handle the block
+            %li.fragment
+              Store as re-usable method
+              .code foo = Proc.new { |x| x ** 2 }
+              .code [1, 2, 3].map(&:foo)
+
+        %section
+          %h2 Used for DSLs
+          %ul
+            %li.fragment
+              Domain Specific Language
+            %li.fragment
+              RSpec, very popular DSL for testing
+          .fragment
+            %img.stretch-height{ src: 'assets/rspec.jpg' }
+
+        %section
+          %h2 Introspection
+          %ul
+            %li.fragment
+              When your site is down and you're not sure why, you often end
+              up in an interactive Ruby shell (irb)
+            %li.fragment
+              .code Object.methods
+              .code (foo.methods - Object.methods)
+              .code foo.methods.grep /set/
+            %li.fragment
+              Tab-complete generally works very well
+            %li.fragment
+              %code caller
+              \- returns array of lines of current traceback
+            %li.fragment
+              Useful to log or programatically check call history
+
+        %section
+          %h2 Time
+          %ul
+            %li.fragment
+              The bane of programmers since January 1, 1970
+            %li.fragment
+              Out-of-the-box easier to work with than other languages
+            %li.fragment
+              Ruby:
+              %code Time.now - (7 * 24 * 3600)
+            %li.fragment
+              Python:
+              %code datetime.datetime.now() - datetime.timedelta(weeks=1)
+            %li.fragment
+              Because everything in Ruby is an Object that can be re-opened,
+              we can make date support even nicer:
+            %li.fragment
+              Rails:
+              .code 1.week.ago
+              .code 1.week.ago.beginning_of_day
+
+        %section
+          %h2 Rails
+          %ul
+            %li.fragment
+              Second most popular web framework (behind ASP.NET)
+            %li.fragment
+              Out-of-the box incoporates many "best practices"
+            %li.fragment
+              e.g. asset concatenation+minification, asset fingerprinting,
+              Russian Doll Caching, RESTful resources
+            %li.fragment ActiveRecord, ActiveJob
+            %li.fragment
+              Migrations to deal with database schema changes
+            %li.fragment
+              Code generators for common patterns (e.g. scaffolds)
+              .code
+                rails g scaffold Tweet user_name:string user_email:string
+                tweet:string
+
+        %section
+          %h2 Rails
+          %ul
+            %li.fragment
+              Best framework for building websites because it's build on the
+              best language
+            %li.fragment
+              Many features/aspects of Rails wouldn't be possible in other
+              languages
+            %li.fragment
+              .code Model.find_by_field
+            %li.fragment
+              .code (1.week.ago)..(3.days.ago)
+            %li.fragment
+              .code
+
+        %section
+          %h2 Too Bad It's Slow
+          %img.fragment.stretch-height{ src: 'assets/cameralends-new-relic-percentiles.jpg' }
+
+        %section
+          %h2 The Ecosystem
+          %ul
+            %li.fragment
+              NewRelic
+            %li.fragment
+              Heroku
+            %li.fragment
+              Rails
+            %li.fragment
+              RubyGems
+
+        %section
+          %h2 Why Web Startups Should Use Ruby
+          %br
+          %h5 presented by
+          %h4 Adam Derewecki
+          %h5 adam@cameralends.com
+          %h5 CameraLends Founder
+          %h5 github.com/derwiki/presentation-ruby
+
+      /
+        required for correct operation of reveal.js,
+        even if we don't want controls
+      %aside.controls
+        %a.left{:href => "#"} &#x25c4;
+        %a.right{:href => "#"} &#x25ba;
+        %a.up{:href => "#"} &#x25b2;
+        %a.down{:href => "#"} &#x25bc;
+
+    %script{:src => "reveal/js/reveal.min.js"}
+    %script{:src => "highlight/build/highlight.pack.js"}
+    :javascript
+      Reveal.initialize({
+        controls: false,
+        progress: false,
+        history: true,
+        mouseWheel: false,
+        rollingLinks: false,
+      });
+      hljs.initHighlightingOnLoad();
